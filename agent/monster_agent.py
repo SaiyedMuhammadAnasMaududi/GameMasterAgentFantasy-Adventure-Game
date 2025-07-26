@@ -1,14 +1,15 @@
-from agents import Agent
+from agents import Agent,OpenAIChatCompletionsModel,set_tracing_disabled
 from tools.dice_tool import roll_dice
+from client.openai_client import client
 
-
+set_tracing_disabled(True)
 class MonsterAgent(Agent):
     def __init__(self):
         super().__init__(name="Monster",instructions = (
         "You handle combat when a monster appears using a dice tool. "
         "If the number is greater than 10, you defeat the monster. Otherwise, "
         "the monster wins and the story begins from the start."
-    ))
+    ),model=OpenAIChatCompletionsModel(openai_client=client,model="gemini-2.0-flash"))
     
 
     def call(self, input_text, context):

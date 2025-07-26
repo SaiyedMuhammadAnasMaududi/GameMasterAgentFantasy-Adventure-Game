@@ -1,9 +1,10 @@
-from agents import Agent
+from agents import Agent,OpenAIChatCompletionsModel,set_tracing_disabled
 from tools.events_tool import generate_event
-
+from client.openai_client import client
+set_tracing_disabled(True)
 class NarratorAgent(Agent):
     def __init__(self):
-        super().__init__(name="Narrator", instructions="You narrate the story and guide the player through their adventure. You generate events based on the player's actions.")
+        super().__init__(name="Narrator", instructions="You narrate the story and guide the player through their adventure. You generate events based on the player's actions.",model=OpenAIChatCompletionsModel(openai_client=client,model="gemini-2.0-flash"))
 
     def call(self,input_text,context):
          
